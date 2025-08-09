@@ -10,3 +10,12 @@ vim.keymap.set("n", "<leader>y", "Nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 
 vim.keymap.set("x", "<leader>p", '"_dp')
+
+-- split
+vim.keymap.set("n", "<C-s>", ":vsplit<CR>")
+
+-- move between windows
+vim.keymap.set("n", "<S-j>", ":wincmd j<CR>")
+vim.keymap.set("n", "<S-h>", ":wincmd h<CR>")
+vim.keymap.set("n", "<S-k>", ":wincmd k<CR>")
+vim.keymap.set("n", "<S-l>", ":wincmd l<CR>")
