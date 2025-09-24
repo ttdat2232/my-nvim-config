@@ -8,13 +8,27 @@ return {
         "nvim-tree/nvim-web-devicons",
     },
     lazy = false,
-    opts = {
-        filesystem = {
-            filtered_items = {
-                visible = true,
-                hide_dotfiles = false,
-                hide_gitignored = false,
+    config = function()
+        require("neo-tree").setup({
+            filesystem = {
+                filtered_items = {
+                    visible = true,
+                    hide_dotfiles = false,
+                    hide_gitignored = false,
+                }
+            },
+            event_handlers = {
+                {
+
+                    event = "file_open_requested",
+                    handler = function()
+                        -- auto close
+                        -- vim.cmd("Neotree close")
+                        -- OR
+                        require("neo-tree.command").execute({ action = "close" })
+                    end
+                }
             }
-        }
-    }
+        })
+    end
 }
