@@ -25,3 +25,6 @@ vim.keymap.set("n", "<C-z>", ":u<CR>")
 
 -- save
 vim.keymap.set("n", "<C-s>", ":w<CR>")
+
+-- close tab
+vim.keymap.set("n", "<C-w>", ":q<CR>")
