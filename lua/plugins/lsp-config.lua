@@ -32,6 +32,7 @@ return {
             vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, {})
             vim.keymap.set("n", "<M-Enter>", vim.lsp.buf.code_action, {})
             vim.keymap.set("n", "gr", require("telescope.builtin").lsp_references, {})
+            vim.keymap.set("n", "<F2>", vim.lsp.buf.rename, {})
         end,
     },
 }
