@@ -1,56 +1,51 @@
 return {
-    { "hrsh7th/vim-vsnip" },
-    { "hrsh7th/cmp-nvim-lsp" },
-    {
-        "L3MON4D3/LuaSnip",
-        dependencies = {
-            "saadparwaiz1/cmp_luasnip",
-            "rafamadriz/friendly-snippets",
-        },
-    },
-    {
-        "hrsh7th/nvim-cmp",
-        config = function()
-            local cmp = require("cmp")
-            require("luasnip.loaders.from_vscode").lazy_load()
-            cmp.setup({
-                snippet = {
-                    -- REQUIRED - you must specify a snippet engine
-                    expand = function(args)
-                        vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
-                        require("luasnip").lsp_expand(args.body) -- For `luasnip` users.
-                        -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
-                        -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
-                        -- vim.snippet.expand(args.body) -- For native neovim snippets (Neovim v0.10+)
+	{
+		"L3MON4D3/LuaSnip",
+		dependencies = {
+			"saadparwaiz1/cmp_luasnip", -- Kết nối LuaSnip với nvim-cmp
+			"rafamadriz/friendly-snippets", -- Bộ snippet sẵn có cho nhiều ngôn ngữ
+		},
+	},
+	{
+		"hrsh7th/nvim-cmp",
+		dependencies = {
+			"hrsh7th/cmp-nvim-lsp", -- Nguồn gợi ý code từ LSP Server
+		},
+		config = function()
+			local cmp = require("cmp")
 
-                        -- For `mini.snippets` users:
-                        -- local insert = MiniSnippets.config.expand.insert or MiniSnippets.default_insert
-                        -- insert({ body = args.body }) -- Insert at cursor
-                        -- cmp.resubscribe({ "TextChangedI", "TextChangedP" })
-                        -- require("cmp.config").set_onetime({ sources = {} })
-                    end,
-                },
-                window = {
-                    completion = cmp.config.window.bordered(),
-                    documentation = cmp.config.window.bordered(),
-                },
-                mapping = cmp.mapping.preset.insert({
-                    ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-                    ["<C-f>"] = cmp.mapping.scroll_docs(4),
-                    ["<C-Space>"] = cmp.mapping.complete(),
-                    ["<C-e>"] = cmp.mapping.abort(),
-                    ["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-                }),
-                sources = cmp.config.sources({
-                    { name = "nvim_lsp" },
-                }, {
-                    -- { name = "vsnip" }, -- For vsnip users.
-                    { name = "luasnip" }, -- For luasnip users.
-                    -- { name = 'ultisnips' }, -- For ultisnips users.
-                    -- { name = 'snippy' }, -- For snippy users.
-                    { name = "buffer" },
-                }),
-            })
-        end,
-    },
+			-- Load các snippet chuẩn dạng VSCode từ friendly-snippets
+			require("luasnip.loaders.from_vscode").lazy_load()
+
+			cmp.setup({
+				snippet = {
+					-- Bắt buộc: Khai báo engine xử lý snippet (đã chọn LuaSnip)
+					expand = function(args)
+						require("luasnip").lsp_expand(args.body)
+					end,
+				},
+
+				-- Bo góc viền cửa sổ gợi ý và cửa sổ xem tài liệu (nhìn đẹp và gọn hơn)
+				window = {
+					completion = cmp.config.window.bordered(),
+					documentation = cmp.config.window.bordered(),
+				},
+
+				-- Cấu hình phím tắt cho popup completion
+				mapping = cmp.mapping.preset.insert({
+					["<C-b>"] = cmp.mapping.scroll_docs(-4), -- Cuộn lên trong cửa sổ tài liệu
+					["<C-f>"] = cmp.mapping.scroll_docs(4), -- Cuộn xuống trong cửa sổ tài liệu
+					["<C-Space>"] = cmp.mapping.complete(), -- Bật menu gợi ý thủ công
+					["<C-e>"] = cmp.mapping.abort(), -- Đóng menu gợi ý
+					["<CR>"] = cmp.mapping.confirm({ select = true }), -- Enter để chọn item đang highlight
+				}),
+
+				-- Thứ tự ưu tiên nguồn lấy dữ liệu gợi ý (từ trên xuống dưới)
+				sources = cmp.config.sources({
+					{ name = "nvim_lsp" }, -- 1. Từ LSP (phương thức, biến, hàm...)
+					{ name = "luasnip" }, -- 2. Từ các mẫu snippet
+				}),
+			})
+		end,
+	},
 }
