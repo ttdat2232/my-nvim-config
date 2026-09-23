@@ -3,8 +3,7 @@ return {
 	config = function()
 		require("lualine").setup({
 			options = {
-				-- theme = "dracula",
-				theme = "nightfly",
+				theme = "nightfly", -- Hoặc dùng "auto" để tự khớp với colorscheme
 			},
 		})
 	end,
