@@ -27,8 +27,7 @@ return {
 				capabilities = capabilities,
 			})
 
-			local dotnet_root = vim.fn.isdirectory("/usr/share/dotnet") == 1 and "/usr/share/dotnet"
-				or vim.fn.expand("$HOME/sdks/dotnet")
+			local dotnet_root = vim.fn.expand("$HOME/sdks/dotnet")
 
 			vim.lsp.config["csharp_ls"] = {
 				cmd_env = {

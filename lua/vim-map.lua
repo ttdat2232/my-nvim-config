@@ -15,10 +15,10 @@ vim.keymap.set("x", "<leader>p", '"_dp')
 vim.keymap.set("n", "<C-BSlash>", ":vsplit<CR>")
 
 -- move between windows
-vim.keymap.set("n", "<S-j>", ":wincmd j<CR>")
-vim.keymap.set("n", "<S-h>", ":wincmd h<CR>")
-vim.keymap.set("n", "<S-k>", ":wincmd k<CR>")
-vim.keymap.set("n", "<S-l>", ":wincmd l<CR>")
+vim.keymap.set("n", "<C-j>", ":wincmd j<CR>")
+vim.keymap.set("n", "<C-h>", ":wincmd h<CR>")
+vim.keymap.set("n", "<C-k>", ":wincmd k<CR>")
+vim.keymap.set("n", "<C-l>", ":wincmd l<CR>")
 
 -- undo
 vim.keymap.set("n", "<C-z>", ":u<CR>")
@@ -27,4 +27,4 @@ vim.keymap.set("n", "<C-z>", ":u<CR>")
 vim.keymap.set("n", "<C-s>", ":w<CR>")
 
 -- close tab
-vim.keymap.set("n", "<C-w>", ":q<CR>")
+vim.keymap.set("n", "<C-w>", ":q<CR>", { silent = true })
